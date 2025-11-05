@@ -3,8 +3,15 @@ import GameList from "@/components/GameList";
 
 export default async function Home() {
 
-   const data =  await getData();
-   if (data.error)
+    let data;
+    try {
+        data =  await getData();
+    } catch (error) {
+        console.log("API call failed!", error);
+        return <p>Unable to obtain API data</p>
+    }
+
+   if (!data || data.error)
    {
        return <p>Unable to obtain API data</p>
    }
